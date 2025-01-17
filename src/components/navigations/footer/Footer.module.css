@@ -1,0 +1,39 @@
+/* Footer.css
+.footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 14px;
+  position: relative; 
+  bottom: 0;
+  width: 100%; 
+}
+
+.footer p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.footerLinks {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.footerLinks li {
+  display: inline;
+}
+
+.footerLinks a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.footerLinks a:hover {
+  text-decoration: underline;
+} */
