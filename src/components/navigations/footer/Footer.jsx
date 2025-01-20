@@ -4,11 +4,11 @@ import styles from"./Footer.module.css"
 const Footer = () => {
   return (
     <footer className={styles.footer}>
-      <p>&copy; 2025 Fortunatus Ihedoro. All Rights Reserved.</p>
+      <p>&copy; {new Date().getFullYear()} Fortunatus Ihedoro. All Rights Reserved.</p>
       <ul className={styles.footerLinks}>
-        <li><a href="/terms">Terms of Service</a></li>
-        <li><a href="/privacy">Privacy Policy</a></li>
-        <li><a href="/contact">Contact Us</a></li>
+        <li><a href="/">Terms of Service</a></li>
+        <li><a href="/">Privacy Policy</a></li>
+        <li><a href="/">Contact Us</a></li>
       </ul>
     </footer>
   )

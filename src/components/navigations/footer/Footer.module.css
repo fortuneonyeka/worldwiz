@@ -1,13 +1,16 @@
-/* Footer.css
+
 .footer {
-  background-color: #333;
-  color: #fff;
+  /* background-color: #333; */
+  color: gray;
+
   text-align: center;
   padding: 20px 0;
   font-size: 14px;
-  position: relative; 
+  /* position: relative;  */
   bottom: 0;
   width: 100%; 
+  margin-top: auto;
+ 
 }
 
 .footer p {
@@ -29,11 +32,24 @@
 }
 
 .footerLinks a {
-  color: #fff;
+  color: gray;
   text-decoration: none;
   font-size: 14px;
 }
 
 .footerLinks a:hover {
   text-decoration: underline;
+}
+
+
+/* .footer {
+  margin-top: auto;
+}
+
+.copyright {
+  font-size: 1.2rem;
+  color: var(--color-light--1);
 } */
+
+
+
