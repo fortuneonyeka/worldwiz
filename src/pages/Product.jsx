@@ -1,8 +1,10 @@
+import Header from "../components/navigations/header/Header";
 import styles from "./Product.module.css";
 
 export default function Product() {
   return (
     <main className={styles.product}>
+      <Header />
       <section>
         <img
           src="img-1.jpg"

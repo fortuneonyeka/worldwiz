@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import styles from "./HomePage.module.css";
+import Header from "../components/navigations/header/Header";
 
 export default function Homepage() {
   return (
     <main className={styles.homepage}>
+      <Header />
       <section>
         <h1>
           You travel the world.

@@ -1,9 +1,11 @@
 // Uses the same styles as Product
+import Header from "../components/navigations/header/Header";
 import styles from "./Product.module.css";
 
 export default function Product() {
   return (
     <main className={styles.product}>
+      <Header />
       <section>
         <div>
           <h2>

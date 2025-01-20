@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styles from "./Login.module.css";
+import Header from "../components/navigations/header/Header";
 
 export default function Login() {
   // PRE-FILL FOR DEV PURPOSES
@@ -8,6 +9,7 @@ export default function Login() {
 
   return (
     <main className={styles.login}>
+      <Header />
       <form className={styles.form}>
         <div className={styles.row}>
           <label htmlFor="email">Email address</label>
@@ -16,6 +18,7 @@ export default function Login() {
             id="email"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
+            placeholder="Email"
           />
         </div>
 

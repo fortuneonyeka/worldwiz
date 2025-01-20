@@ -1,0 +1,21 @@
+
+
+.nav ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav a {
+  text-decoration: none; /* Removes the underline */
+  color: black;
+  padding: 8px 12px;
+}
+
+.nav :global(a.active) {
+  font-weight: bold;
+  color: blue;
+  text-decoration: underline;
+ 
+}
