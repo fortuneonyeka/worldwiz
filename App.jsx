@@ -52,7 +52,7 @@ function App() {
             <Route path="app" element={<AppLayout />}>
               <Route index element={<CityList cities={cities} isLoading={isLoading} error={error}/>} />
               <Route path="cities" element={<CityList cities={cities} isLoading={isLoading} error={error}/>} />
-              <Route path="countries" element={<CountryList />} />
+              <Route path="countries" element={<CountryList cities={cities} isLoading={isLoading} error={error}/>} />
               <Route path="form" element={<Form />} />
             </Route>
             <Route path="*" element={<PageNotFound />} />
