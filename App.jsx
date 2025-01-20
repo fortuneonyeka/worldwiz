@@ -8,19 +8,27 @@ import Footer from "./src/components/navigations/footer/Footer";
 import PageNotFound from "./src/pages/PageNotFound";
 import AppLayout from "./src/pages/AppLayout";
 import Login from "./src/pages/Login";
+import City from "./src/components/City";
+import CountryItem from "./src/components/CountryItem";
+import Form from "./src/components/Form";
 
 function App() {
   return (
-    <div >
+    <div>
       <BrowserRouter>
         {/* <Header /> */}
-        <main >
+        <main>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="products" element={<Product />} />
             <Route path="pricing" element={<Pricing />} />
             <Route path="login" element={<Login />} />
-            <Route path="app" element={<AppLayout />} />
+            <Route path="app" element={<AppLayout />}>
+              <Route index element={<City />} />
+              <Route path="cities" element={<City />} />
+              <Route path="countries" element={<CountryItem />} />
+              <Route path="form" element={<Form />} />
+            </Route>
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </main>

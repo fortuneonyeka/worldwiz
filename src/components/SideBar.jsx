@@ -1,8 +1,9 @@
-import React from 'react'
-import styles from "./Sidebar.module.css"
-import Logo from './navigations/header/Logo';
-import AppNav from './navigations/AppNav';
-import Footer from './navigations/footer/Footer';
+import React from "react";
+import styles from "./Sidebar.module.css";
+import Logo from "./navigations/header/Logo";
+import AppNav from "./AppNav";
+import Footer from "./navigations/footer/Footer";
+import { Outlet } from "react-router-dom";
 
 const SideBar = () => {
   return (
@@ -10,11 +11,11 @@ const SideBar = () => {
       <Logo />
       <AppNav />
 
-      <p>List of cities</p>
+      <Outlet />
 
       <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default SideBar
+export default SideBar;
