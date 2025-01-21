@@ -1,7 +1,4 @@
-// "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=0&longitude=0"
-
 import { useState } from "react";
-
 import styles from "./Form.module.css";
 
 export function convertToEmoji(countryCode) {
@@ -13,10 +10,20 @@ export function convertToEmoji(countryCode) {
 }
 
 function Form() {
-  const [cityName, setCityName] = useState("");
-  const [country, setCountry] = useState("");
-  const [date, setDate] = useState(new Date());
-  const [notes, setNotes] = useState("");
+  const [formData, setFormData] = useState({
+    cityName: "",
+    country: "",
+    date: new Date().toISOString().slice(0, 10), // Default to today's date
+    notes: "",
+  });
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [id]: value,
+    }));
+  };
 
   return (
     <form className={styles.form}>
@@ -24,33 +31,36 @@ function Form() {
         <label htmlFor="cityName">City name</label>
         <input
           id="cityName"
-          onChange={(e) => setCityName(e.target.value)}
-          value={cityName}
+          onChange={handleChange}
+          value={formData.cityName}
         />
         {/* <span className={styles.flag}>{emoji}</span> */}
       </div>
 
       <div className={styles.row}>
-        <label htmlFor="date">When did you go to {cityName}?</label>
+        <label htmlFor="date">When did you go to {formData.cityName}?</label>
         <input
           id="date"
-          onChange={(e) => setDate(e.target.value)}
-          value={date}
+          type="date"
+          onChange={handleChange}
+          value={formData.date}
         />
       </div>
 
       <div className={styles.row}>
-        <label htmlFor="notes">Notes about your trip to {cityName}</label>
+        <label htmlFor="notes">
+          Notes about your trip to {formData.cityName}
+        </label>
         <textarea
           id="notes"
-          onChange={(e) => setNotes(e.target.value)}
-          value={notes}
+          onChange={handleChange}
+          value={formData.notes}
         />
       </div>
 
       <div className={styles.buttons}>
-        <button>Add</button>
-        <button>&larr; Back</button>
+        <button type="button">Add</button>
+        <button type="button">&larr; Back</button>
       </div>
     </form>
   );

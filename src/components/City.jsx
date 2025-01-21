@@ -12,7 +12,7 @@ const formatDate = (date) =>
 function City() {
   const {id} = useParams()
   
-  const [searchParams, setSearchParrams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
     const lat = searchParams.get("lat")
     const lng = searchParams.get("lng")
   
@@ -29,7 +29,6 @@ function City() {
 <div>
 <h1>{id}</h1>
 <h1>Position: {lat} {lng}</h1>
-<button onClick={() => setSearchParrams({lat:23,lng:25})}>Change Position</button>
 </div>
   )
 
