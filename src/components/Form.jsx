@@ -1,5 +1,7 @@
 import { useState } from "react";
 import styles from "./Form.module.css";
+import { useNavigate } from "react-router-dom";
+import Button from "./button/Button";
 
 export function convertToEmoji(countryCode) {
   const codePoints = countryCode
@@ -24,6 +26,8 @@ function Form() {
       [id]: value,
     }));
   };
+
+  const navigate = useNavigate()
 
   return (
     <form className={styles.form}>
@@ -59,8 +63,12 @@ function Form() {
       </div>
 
       <div className={styles.buttons}>
-        <button type="button">Add</button>
-        <button type="button">&larr; Back</button>
+        <Button type="primary" text="Add"/>
+        <Button type="back" text="&larr; Back" onClick={(e) => {
+          e.preventDefault()
+          navigate(-1)
+        }}/>
+        
       </div>
     </form>
   );

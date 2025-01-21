@@ -12,7 +12,6 @@ const formatDate = (date) =>
 const CityItem = ({city}) => {
 
   const {cityName, emoji, date, id,position } = city
-  console.log(position);
   
 
   return (
@@ -20,7 +19,7 @@ const CityItem = ({city}) => {
       <Link to={`${id}?lat=${position.lat}&lng=${position.lng}`} className={styles.cityItem}>
       <span className={styles.emoji}>{emoji}</span>
      <h3 className={styles.name}>{cityName}</h3> 
-     <time datetime="" className={styles.date}>({formatDate(date)})</time>
+     <time dateTime="" className={styles.date}>({formatDate(date)})</time>
      <button className={styles.deleteBtn}>&times;</button>
       </Link>
     </li>
