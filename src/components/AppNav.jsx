@@ -14,3 +14,6 @@ const AppNav = () => {
 }
 
 export default AppNav
+
+
+// className={`${styles.cityItem} ${currentCity.id === id ? styles["cityItem--active"] : ""}`

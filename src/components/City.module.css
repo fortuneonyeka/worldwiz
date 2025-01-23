@@ -3,6 +3,7 @@
   max-height: 70%;
   background-color: var(--color-dark--2);
   border-radius: 7px;
+  border: 2px solid var(--color-brand--1);
   overflow: scroll;
 
   width: 100%;
