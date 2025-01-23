@@ -63,7 +63,10 @@ function Form() {
       </div>
 
       <div className={styles.buttons}>
-        <Button type="primary" text="Add"/>
+        <Button type="primary" text="Add" onClick={(e) => {
+          e.preventDefault()
+          navigate(-1)
+        }}/>
         <Button type="back" text="&larr; Back" onClick={(e) => {
           e.preventDefault()
           navigate(-1)
