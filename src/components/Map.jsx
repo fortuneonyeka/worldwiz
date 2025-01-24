@@ -24,10 +24,13 @@ const Map = () => {
         {cities.map((city) => (
           <Marker 
             key={city.id} 
-            position={mapPosition}
+            position={[city.position.lat, city.position.lng]}
           >
             <Popup>
-              {city.cityName}, {city.country}
+              <span>{city.emoji}</span>
+              <span>{city.cityName},</span>
+              <span>{city.country}</span>
+             
             </Popup>
           </Marker>
         ))}
