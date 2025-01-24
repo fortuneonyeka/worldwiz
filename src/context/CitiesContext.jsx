@@ -1,28 +1,32 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const CitiesContext = createContext();
 
 export const CitiesProvider = ({ children }) => {
   const [cities, setCities] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIstLoading] = useState(false);
   const [error, setError] = useState("");
   const [currentCity, setCurrentCity] = useState({});
 
   const BASE_URL = "http://localhost:8000";
+  // const navigate = useNavigate()
 
   useEffect(() => {
-    setIsLoading(true);
+    setIstLoading(true);
     const fetchCities = async () => {
       try {
         const res = await fetch(`${BASE_URL}/cities`);
         if (res.ok) {
           const data = await res.json();
+
           setCities(data);
+          setIstLoading(false);
         }
       } catch (error) {
         setError(error.message);
       } finally {
-        setIsLoading(false);
+        setIstLoading(false);
       }
     };
     fetchCities();
@@ -30,23 +34,28 @@ export const CitiesProvider = ({ children }) => {
 
   async function getCity(id) {
     try {
-      setIsLoading(true);
+      setIstLoading(true);
       const res = await fetch(`${BASE_URL}/cities/${id}`);
-      if (res.ok) {
-        const data = await res.json();
-        setCurrentCity(data);
+      
+      if (!res.ok) {
+        // Handle non-200 responses
+        throw new Error(`City not found or network error: ${res.status}`);
       }
+  
+      const data = await res.json();
+      setCurrentCity(data);
     } catch (error) {
       setError(error.message);
+      // Optional: Navigate back or show error message
+     
     } finally {
-      setIsLoading(false);
+      setIstLoading(false);
     }
   }
 
   return (
     <CitiesContext.Provider
-      value={{ cities, isLoading, error, currentCity, getCity }}
-    >
+      value={{ cities, isLoading, error, currentCity, getCity }}>
       {children}
     </CitiesContext.Provider>
   );
@@ -55,6 +64,6 @@ export const CitiesProvider = ({ children }) => {
 export const useCities = () => {
   const context = useContext(CitiesContext);
   if (context === undefined)
-    throw new Error("CitiesContext was used outside CitiesProvider");
+    throw new Error("CitiesContext was used outside citiesProvider");
   return context;
 };
