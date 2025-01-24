@@ -1,21 +1,39 @@
-import React from 'react'
-import styles from './Map.module.css'
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import styles from './Map.module.css';
+import { useNavigate } from 'react-router-dom';
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import { useCities } from '../context/CitiesContext';
 
 const Map = () => {
-  const [searchParams, setSearchParams] = useSearchParams()
-  const lat = searchParams.get("lat")
-  const lng = searchParams.get("lng")
-  const navigate = useNavigate()  
+  const navigate = useNavigate();
+  const { cities } = useCities();
+  const [mapPosition, setMapPosition] = useState([40,0])
+
   return (
-    <div className={styles.mapContainer} onClick={() =>navigate("form")}>
-      <h1>Map</h1>
-      <p>lat: {lat} lng: {lng}</p>
-     
-      <button onClick={() => setSearchParams({lat:23,lng:25})}>Change Position</button>
-
+    <div className={styles.mapContainer} >
+      <MapContainer 
+        center={mapPosition} 
+        zoom={13} 
+        scrollWheelZoom={true} 
+        className={styles.map}
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
+        />
+        {cities.map((city) => (
+          <Marker 
+            key={city.id} 
+            position={mapPosition}
+          >
+            <Popup>
+              {city.cityName}, {city.country}
+            </Popup>
+          </Marker>
+        ))}
+      </MapContainer>
     </div>
-  )
-}
+  );
+};
 
-export default Map
+export default Map;
