@@ -2,7 +2,8 @@ import React from "react";
 import AppNav from "../components/AppNav";
 import SideBar from "../components/SideBar";
 import styles from "./AppLayout.module.css";
-import Map from "../components/Map";
+import Map from "../components/map/Map";
+
 
 const AppLayout = () => {
   return (
