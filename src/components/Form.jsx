@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Form.module.css";
 import { useNavigate } from "react-router-dom";
 import Button from "./button/Button";
 import BackButton from "./button/BackButton";
+import { useUrlPosition } from "../hooks/useUrlPosition";
+import Message from "./Message";
+import Spinner from "./Spinner";
 
 export function convertToEmoji(countryCode) {
   const codePoints = countryCode
@@ -12,11 +15,17 @@ export function convertToEmoji(countryCode) {
   return String.fromCodePoint(...codePoints);
 }
 
+const BASE_URL = "https://api.bigdatacloud.net/data/reverse-geocode-client";
+
 function Form() {
+  const [lat, lng] = useUrlPosition();
+  const [isLoadingGeoCoding, setIsLoadingGeoCoding] = useState(false);
+  const [geocodingError, setGeocodingError] = useState("");
+  const [emoji, setEmoji] = useState("");
   const [formData, setFormData] = useState({
     cityName: "",
     country: "",
-    date: new Date().toISOString().slice(0, 10), // Default to today's date
+    date: new Date().toISOString().slice(0, 10),
     notes: "",
   });
 
@@ -28,18 +37,84 @@ function Form() {
     }));
   };
 
-  const navigate = useNavigate()
+  useEffect(() => {
+    if (!lat || !lng) {
+      return <span>No coordinates available</span>
+    }
+
+    async function fetchCityDetails() {
+      try {
+        setIsLoadingGeoCoding(true);
+        setGeocodingError("");
+
+        const url = `${BASE_URL}?latitude=${lat}&longitude=${lng}`;
+
+        const res = await fetch(url);
+
+        if (!res.ok) {
+          throw new Error("API Response not OK: Failed to fetch location data" );
+        }
+
+        const data = await res.json();
+
+        if (!data.city && !data.locality) {
+          throw new Error(
+            "No city found at this location. Please click somewhere else."
+          );
+        }
+
+        if (!data.countryCode)
+          throw new Error(
+            "That doesn't seem to be a city or a country, select another location 😊"
+          );
+
+        // Update form data
+        setFormData((prev) => ({
+          ...prev,
+          cityName: data.city || data.locality || "",
+          country: data.countryName || "",
+        }));
+
+        // Update emoji
+        if (data.countryCode) {
+          const newEmoji = convertToEmoji(data.countryCode);
+          setEmoji(newEmoji);
+        }
+      } catch (error) {
+        console.error("Geocoding Error:", error);
+        setGeocodingError(error.message);
+      } finally {
+        setIsLoadingGeoCoding(false);
+      }
+    }
+
+    fetchCityDetails();
+  }, [lat, lng]);
+
+  const navigate = useNavigate();
+
+  if (isLoadingGeoCoding) {
+    // return <div className={styles.form.loading}>Loading...</div>;
+    return <Spinner />
+  }
+
+  if (geocodingError) {
+    return <Message message={geocodingError} />;
+  }
 
   return (
     <form className={styles.form}>
       <div className={styles.row}>
         <label htmlFor="cityName">City name</label>
-        <input
-          id="cityName"
-          onChange={handleChange}
-          value={formData.cityName}
-        />
-        {/* <span className={styles.flag}>{emoji}</span> */}
+        <div className={styles.inputWithFlag}>
+          <input
+            id="cityName"
+            onChange={handleChange}
+            value={formData.cityName}
+            required
+          />
+          <span className={styles.flag}>{emoji}</span>
+        </div>
       </div>
 
       <div className={styles.row}>
@@ -49,6 +124,7 @@ function Form() {
           type="date"
           onChange={handleChange}
           value={formData.date}
+          required
         />
       </div>
 
@@ -56,20 +132,19 @@ function Form() {
         <label htmlFor="notes">
           Notes about your trip to {formData.cityName}
         </label>
-        <textarea
-          id="notes"
-          onChange={handleChange}
-          value={formData.notes}
-        />
+        <textarea id="notes" onChange={handleChange} value={formData.notes} />
       </div>
 
       <div className={styles.buttons}>
-        <Button type="primary" text="Add" onClick={(e) => {
-          e.preventDefault()
-          navigate(-1)
-        }}/>
+        <Button
+          type="primary"
+          text="Add"
+          onClick={(e) => {
+            e.preventDefault();
+            navigate(-1);
+          }}
+        />
         <BackButton />
-        
       </div>
     </form>
   );

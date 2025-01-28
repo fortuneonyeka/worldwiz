@@ -7,35 +7,46 @@ import DetectClick from "./DetectClick";
 import ChangeCenter from "./ChangeCenter";
 import { useGeolocation } from "../../hooks/useGeoLocation";
 import Button from "../button/Button";
+import { useUrlPosition } from "../../hooks/useUrlPosition";
 
 const Map = () => {
   const [mapPosition, setMapPosition] = useState([40, 0]);
   const { cities } = useCities();
-  const [searchParams] = useSearchParams();
   const {
     isLoading: isLoadingPosition,
     position: geoLocationPosition,
     getPosition,
   } = useGeolocation();
+  const [mapLat, mapLng] = useUrlPosition();
+  const [isUsingGeoLocation, setIsUsingGeoLocation] = useState(false);
 
-  const mapLat = searchParams.get("lat");
-  const mapLng = searchParams.get("lng");
-
+  // Update map position when URL coordinates change
   useEffect(() => {
-    if (mapLat && mapLng) setMapPosition([mapLat, mapLng]);
+    if (mapLat && mapLng) {
+      setMapPosition([mapLat, mapLng]);
+      setIsUsingGeoLocation(false); // Reset geolocation flag
+    }
   }, [mapLat, mapLng]);
 
+  // Update map position when geolocation is used
   useEffect(() => {
-    if (geoLocationPosition)
+    if (geoLocationPosition && isUsingGeoLocation) {
       setMapPosition([geoLocationPosition.lat, geoLocationPosition.lng]);
-  }, [geoLocationPosition]);
+    }
+  }, [geoLocationPosition, isUsingGeoLocation]);
+
+  // Handle "Use your position" button click
+  const handleUsePosition = () => {
+    getPosition();
+    setIsUsingGeoLocation(true); // Set flag to indicate geolocation is being used
+  };
 
   return (
     <div className={styles.mapContainer}>
-      {!geoLocationPosition && (
+      {!isUsingGeoLocation && (
         <Button
           type="position"
-          onClick={getPosition}
+          onClick={handleUsePosition}
           text={isLoadingPosition ? "...Loading" : "Use your position"}
         />
       )}
@@ -43,7 +54,8 @@ const Map = () => {
         center={mapPosition}
         zoom={6}
         scrollWheelZoom={true}
-        className={styles.map}>
+        className={styles.map}
+      >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
@@ -51,7 +63,8 @@ const Map = () => {
         {cities.map((city) => (
           <Marker
             key={city.id}
-            position={[city.position.lat, city.position.lng]}>
+            position={[city.position.lat, city.position.lng]}
+          >
             <Popup>
               <span>{city.emoji}</span>
               <span>{city.cityName},</span>
@@ -60,7 +73,7 @@ const Map = () => {
           </Marker>
         ))}
         {/* Add a Marker for the current geolocation position */}
-        {geoLocationPosition && (
+        {geoLocationPosition && isUsingGeoLocation && (
           <Marker position={[geoLocationPosition.lat, geoLocationPosition.lng]}>
             <Popup>Your current location</Popup>
           </Marker>
