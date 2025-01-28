@@ -39,7 +39,7 @@ function Form() {
 
   useEffect(() => {
     if (!lat || !lng) {
-      return <span>No coordinates available</span>
+      return <span>No coordinates available</span>;
     }
 
     async function fetchCityDetails() {
@@ -52,7 +52,7 @@ function Form() {
         const res = await fetch(url);
 
         if (!res.ok) {
-          throw new Error("API Response not OK: Failed to fetch location data" );
+          throw new Error("API Response not OK: Failed to fetch location data");
         }
 
         const data = await res.json();
@@ -95,7 +95,7 @@ function Form() {
 
   if (isLoadingGeoCoding) {
     // return <div className={styles.form.loading}>Loading...</div>;
-    return <Spinner />
+    return <Spinner />;
   }
 
   if (geocodingError) {
@@ -105,6 +105,17 @@ function Form() {
   return (
     <form className={styles.form}>
       <div className={styles.row}>
+        <label htmlFor="cityName">Country name</label>
+
+        <input
+          id="country"
+          onChange={handleChange}
+          value={formData.country}
+          required
+        />
+        <span className={styles.flag}>{emoji}</span>
+      </div>
+      <div className={styles.row}>
         <label htmlFor="cityName">City name</label>
         <div className={styles.inputWithFlag}>
           <input
@@ -113,7 +124,6 @@ function Form() {
             value={formData.cityName}
             required
           />
-          <span className={styles.flag}>{emoji}</span>
         </div>
       </div>
 
@@ -130,7 +140,7 @@ function Form() {
 
       <div className={styles.row}>
         <label htmlFor="notes">
-          Notes about your trip to {formData.cityName}
+          Notes about your trip to {formData.cityName} city of {formData.country}
         </label>
         <textarea id="notes" onChange={handleChange} value={formData.notes} />
       </div>
