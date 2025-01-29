@@ -8,8 +8,8 @@ import PageNotFound from "./src/pages/PageNotFound";
 import AppLayout from "./src/pages/AppLayout";
 import Login from "./src/pages/Login";
 import Form from "./src/components/Form";
-import CityList from "./src/components/CityList";
-import City from "./src/components/City";
+import CityList from "./src/components/city/cityList/CityList";
+import City from "./src/components/city/City";
 import CountryList from "./src/components/CountryList";
 import { CitiesProvider } from "./src/context/CitiesContext";
 
