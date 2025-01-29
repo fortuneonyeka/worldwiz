@@ -38,9 +38,8 @@ function Form() {
   };
 
   useEffect(() => {
-    if (!lat || !lng) {
-      return <span>No coordinates available</span>;
-    }
+    if (!lat && !lng) return;
+    
 
     async function fetchCityDetails() {
       try {
@@ -94,9 +93,9 @@ function Form() {
   const navigate = useNavigate();
 
   if (isLoadingGeoCoding) {
-    // return <div className={styles.form.loading}>Loading...</div>;
     return <Spinner />;
   }
+  if (!lat && !lng) return <Message message={"No co-ordinate found, click on a location in the map 😊"}/>
 
   if (geocodingError) {
     return <Message message={geocodingError} />;
