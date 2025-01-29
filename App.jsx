@@ -7,17 +7,18 @@ import Footer from "./src/components/navigations/footer/Footer";
 import PageNotFound from "./src/pages/PageNotFound";
 import AppLayout from "./src/pages/AppLayout";
 import Login from "./src/pages/Login";
-import Form from "./src/components/Form";
+import Form from "./src/components/form/Form";
 import CityList from "./src/components/city/cityList/CityList";
 import City from "./src/components/city/City";
-import CountryList from "./src/components/CountryList";
+import CountryList from "./src/components/country/countryList/CountryList";
 import { CitiesProvider } from "./src/context/CitiesContext";
 
 function App() {
   return (
     <div>
       <CitiesProvider>
-        <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+        <BrowserRouter
+          future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           {/* <Header /> */}
           <main>
             <Routes>

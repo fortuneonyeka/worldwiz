@@ -6,7 +6,7 @@ import { useCities } from "../../context/CitiesContext";
 import DetectClick from "./DetectClick";
 import ChangeCenter from "./ChangeCenter";
 import { useGeolocation } from "../../hooks/useGeoLocation";
-import Button from "../button/Button";
+import Button from "../re-usables/button/Button";
 import { useUrlPosition } from "../../hooks/useUrlPosition";
 
 const Map = () => {
@@ -54,8 +54,7 @@ const Map = () => {
         center={mapPosition}
         zoom={6}
         scrollWheelZoom={true}
-        className={styles.map}
-      >
+        className={styles.map}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
@@ -63,8 +62,7 @@ const Map = () => {
         {cities.map((city) => (
           <Marker
             key={city.id}
-            position={[city.position.lat, city.position.lng]}
-          >
+            position={[city.position.lat, city.position.lng]}>
             <Popup>
               <span>{city.emoji}</span>
               <span>{city.cityName},</span>

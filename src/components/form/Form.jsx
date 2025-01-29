@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import styles from "./Form.module.css";
 import { useNavigate } from "react-router-dom";
-import Button from "./button/Button";
-import BackButton from "./button/BackButton";
-import { useUrlPosition } from "../hooks/useUrlPosition";
-import Message from "./Message";
-import Spinner from "./Spinner";
+import Button from "../re-usables/button/Button";
+import BackButton from "../re-usables/button/BackButton";
+import { useUrlPosition } from "../../hooks/useUrlPosition";
+import Message from "../re-usables/message/Message";
+import Spinner from "../re-usables/spinners/Spinner";
 
 export function convertToEmoji(countryCode) {
   const codePoints = countryCode
@@ -140,7 +140,8 @@ function Form() {
 
       <div className={styles.row}>
         <label htmlFor="notes">
-          Notes about your trip to {formData.cityName} city of {formData.country}
+          Notes about your trip to {formData.cityName} city of{" "}
+          {formData.country}
         </label>
         <textarea id="notes" onChange={handleChange} value={formData.notes} />
       </div>

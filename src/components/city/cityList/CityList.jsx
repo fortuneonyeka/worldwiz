@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./CityList.module.css";
-import Spinner from "../../Spinner";
+import Spinner from "../../re-usables/spinners/Spinner";
 import CityItem from "../cityItem/CityItem";
-import Message from "../../Message";
+import Message from "../../re-usables/message/Message";
 import { useCities } from "../../../context/CitiesContext";
 
 const CityList = () => {
