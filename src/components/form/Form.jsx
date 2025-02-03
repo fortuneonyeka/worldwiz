@@ -53,14 +53,11 @@ function Form() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (!lat || !lng) {
+    if (!lat || !lng || !formData.cityName || !formData.date) {
       return;
     }
 
-    if (isLoading) {
-      return <Spinner />
-    }
-
+  
     try {
       const newCity = {
         cityName: formData.cityName,
@@ -139,9 +136,9 @@ function Form() {
   }
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <form className={`${styles.form} ${isLoading ? styles.loading : ""}`} onSubmit={handleSubmit}>
       <div className={styles.row}>
-        <label htmlFor="cityName">Country name</label>
+        <label htmlFor="country">Country name</label>
         <input
           id="country"
           onChange={handleChange}
