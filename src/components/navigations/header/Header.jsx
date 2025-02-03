@@ -1,20 +1,14 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./Header.module.css";
+import Logo from "./Logo";
 
 const Header = () => {
   return (
     <nav className={styles.nav}>
+      <Logo />
+
       <ul>
-        <li>
-          <NavLink
-            to="/"
-            // className={({ isActive }) => (isActive ? styles.active : "")}
-           
-          >
-            Home
-          </NavLink>
-        </li>
         <li>
           <NavLink
             to="/products"
@@ -29,6 +23,14 @@ const Header = () => {
             // className={({ isActive }) => (isActive ? styles.active : "")}
           >
             Pricing
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/login"
+            className={styles.ctaLink}
+          >
+            Login
           </NavLink>
         </li>
       </ul>
