@@ -86,7 +86,7 @@ export const CitiesProvider = ({ children }) => {
         method: 'DELETE'
       });
 
-      if (!res.ok) throw new Error('Failed to delete city');
+      if (!res.ok) throw new Error(`Failed to delete city`);
 
       setCities(cities => cities.filter(city => city.id !== id));
       

@@ -25,18 +25,6 @@
       }
     },
     {
-      "id": "1b35",
-      "cityName": "Abuja",
-      "country": "Nigeria",
-      "emoji": "🇳🇬",
-      "date": "2025-02-03T11:21:23.110Z",
-      "notes": "Beautiful but hot",
-      "position": {
-        "lat": "8.928487062665504",
-        "lng": "7.558593750000001"
-      }
-    },
-    {
       "id": "7779",
       "cityName": "Pioz",
       "country": "Spain",
@@ -58,42 +46,6 @@
       "position": {
         "lat": "39.605688178320804",
         "lng": "-7.932128906250001"
-      }
-    },
-    {
-      "id": "5a8b",
-      "cityName": "Nice",
-      "country": "France",
-      "emoji": "🇫🇷",
-      "date": "2025-02-03T12:16:58.876Z",
-      "notes": "Great city",
-      "position": {
-        "lat": "43.723474896114794",
-        "lng": "7.294921875000001"
-      }
-    },
-    {
-      "id": "8078",
-      "cityName": "Mersch",
-      "country": "Luxembourg",
-      "emoji": "🇱🇺",
-      "date": "2025-02-03T12:17:48.523Z",
-      "notes": "Nice",
-      "position": {
-        "lat": "49.69606181911566",
-        "lng": "6.08642578125"
-      }
-    },
-    {
-      "id": "ded4",
-      "cityName": "Brussels",
-      "country": "Belgium",
-      "emoji": "🇧🇪",
-      "date": "2025-02-03T12:18:38.173Z",
-      "notes": "",
-      "position": {
-        "lat": "50.80593472676908",
-        "lng": "4.372558593750001"
       }
     }
   ]
