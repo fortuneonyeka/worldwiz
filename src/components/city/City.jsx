@@ -4,8 +4,10 @@ import { useCities } from "../../context/CitiesContext";
 import { useEffect } from "react";
 import Spinner from "../re-usables/spinners/Spinner";
 import BackButton from "../re-usables/button/BackButton";
+import Button from "../re-usables/button/Button";
+import Message from "../re-usables/message/Message";
 
-const formatDate = (date = new Date()) =>
+const formatDate = (date) =>
   new Intl.DateTimeFormat("en", {
     day: "numeric",
     month: "long",
@@ -15,17 +17,26 @@ const formatDate = (date = new Date()) =>
 
 function City() {
   const { id } = useParams();
-
-  const { currentCity, getCity, isLoading } = useCities();
+  const { currentCity, getCity, isLoading, deleteCity } = useCities();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getCity(id);
-  }, [id]);
+  }, [id, getCity]);
 
-  const { cityName, emoji, notes, date } = currentCity;
-
-  const navigate = useNavigate();
   if (isLoading) return <Spinner />;
+  if (!currentCity.id) return <Message message="No city found" />;
+
+  const { cityName, emoji, date, notes } = currentCity;
+
+  async function handleDelete() {
+    try {
+      await deleteCity(id);
+      navigate('/app/cities');
+    } catch (error) {
+      // Error is already handled in context
+    }
+  }
 
   return (
     <div className={styles.city}>
@@ -38,7 +49,7 @@ function City() {
 
       <div className={styles.row}>
         <h6>You went to {cityName} on</h6>
-        <p>{formatDate()}</p>
+        <p>{formatDate(date)}</p>
       </div>
 
       {notes && (
@@ -58,7 +69,8 @@ function City() {
         </a>
       </div>
 
-      <div>
+      <div className={`${styles.row} ${styles.buttons}`}>
+        <Button type="primary" text="⨉ Delete" onClick={handleDelete} />
         <BackButton />
       </div>
     </div>
