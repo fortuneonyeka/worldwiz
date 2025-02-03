@@ -1,30 +1,6 @@
 {
   "cities": [
     {
-      "cityName": "Lisbon",
-      "country": "Portugal",
-      "emoji": "🇵🇹",
-      "date": "2027-10-31T15:59:59.138Z",
-      "notes": "My favorite city so far!",
-      "position": {
-        "lat": 38.727881642324164,
-        "lng": -9.140900099907554
-      },
-      "id": 73930385
-    },
-    {
-      "cityName": "Madrid",
-      "country": "Spain",
-      "emoji": "🇪🇸",
-      "date": "2027-07-15T08:22:53.976Z",
-      "notes": "",
-      "position": {
-        "lat": 40.46635901755316,
-        "lng": -3.7133789062500004
-      },
-      "id": 17806751
-    },
-    {
       "cityName": "Berlin",
       "country": "Germany",
       "emoji": "🇩🇪",
@@ -34,8 +10,91 @@
         "lat": 52.53586782505711,
         "lng": 13.376933665713324
       },
-      "id": 98443197
+      "id": "98443197"
+    },
+    {
+      "id": "0797",
+      "cityName": "Puylaroque",
+      "country": "France",
+      "emoji": "🇫🇷",
+      "date": "2025-01-31T11:16:59.000Z",
+      "notes": "Nice",
+      "position": {
+        "lat": "44.29240108529008",
+        "lng": "1.6479492187500002"
+      }
+    },
+    {
+      "id": "1b35",
+      "cityName": "Abuja",
+      "country": "Nigeria",
+      "emoji": "🇳🇬",
+      "date": "2025-02-03T11:21:23.110Z",
+      "notes": "Beautiful but hot",
+      "position": {
+        "lat": "8.928487062665504",
+        "lng": "7.558593750000001"
+      }
+    },
+    {
+      "id": "7779",
+      "cityName": "Pioz",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2025-01-28T11:48:21.000Z",
+      "notes": "",
+      "position": {
+        "lat": "40.44694705960048",
+        "lng": "-3.1640625000000004"
+      }
+    },
+    {
+      "id": "742a",
+      "cityName": "Macao",
+      "country": "Portugal",
+      "emoji": "🇵🇹",
+      "date": "2025-02-03T12:11:47.064Z",
+      "notes": "",
+      "position": {
+        "lat": "39.605688178320804",
+        "lng": "-7.932128906250001"
+      }
+    },
+    {
+      "id": "5a8b",
+      "cityName": "Nice",
+      "country": "France",
+      "emoji": "🇫🇷",
+      "date": "2025-02-03T12:16:58.876Z",
+      "notes": "Great city",
+      "position": {
+        "lat": "43.723474896114794",
+        "lng": "7.294921875000001"
+      }
+    },
+    {
+      "id": "8078",
+      "cityName": "Mersch",
+      "country": "Luxembourg",
+      "emoji": "🇱🇺",
+      "date": "2025-02-03T12:17:48.523Z",
+      "notes": "Nice",
+      "position": {
+        "lat": "49.69606181911566",
+        "lng": "6.08642578125"
+      }
+    },
+    {
+      "id": "ded4",
+      "cityName": "Brussels",
+      "country": "Belgium",
+      "emoji": "🇧🇪",
+      "date": "2025-02-03T12:18:38.173Z",
+      "notes": "",
+      "position": {
+        "lat": "50.80593472676908",
+        "lng": "4.372558593750001"
+      }
     }
-    
   ]
 }
