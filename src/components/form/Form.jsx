@@ -5,7 +5,10 @@ import Button from "../re-usables/button/Button";
 import BackButton from "../re-usables/button/BackButton";
 import { useUrlPosition } from "../../hooks/useUrlPosition";
 import Message from "../re-usables/message/Message";
+import { useCities } from "../../context/CitiesContext";
 import Spinner from "../re-usables/spinners/Spinner";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export function convertToEmoji(countryCode) {
   const codePoints = countryCode
@@ -22,10 +25,13 @@ function Form() {
   const [isLoadingGeoCoding, setIsLoadingGeoCoding] = useState(false);
   const [geocodingError, setGeocodingError] = useState("");
   const [emoji, setEmoji] = useState("");
+  const { createCity, isLoading } = useCities();
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     cityName: "",
     country: "",
-    date: new Date().toISOString().slice(0, 10),
+    date: new Date(),
     notes: "",
   });
 
@@ -37,9 +43,44 @@ function Form() {
     }));
   };
 
+  const handleDateChange = (date) => {
+    setFormData((prev) => ({
+      ...prev,
+      date: date
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (!lat || !lng) {
+      return;
+    }
+
+    if (isLoading) {
+      return <Spinner />
+    }
+
+    try {
+      const newCity = {
+        cityName: formData.cityName,
+        country: formData.country,
+        emoji: emoji,
+        date: formData.date.toISOString(),
+        notes: formData.notes,
+        position: { lat, lng }
+      };
+
+      await createCity(newCity);
+      navigate('/app/cities');
+      
+    } catch (error) {
+      setGeocodingError(error.message);
+    }
+  };
+
   useEffect(() => {
     if (!lat && !lng) return;
-    
 
     async function fetchCityDetails() {
       try {
@@ -67,14 +108,12 @@ function Form() {
             "That doesn't seem to be a city or a country, select another location 😊"
           );
 
-        // Update form data
         setFormData((prev) => ({
           ...prev,
           cityName: data.city || data.locality || "",
           country: data.countryName || "",
         }));
 
-        // Update emoji
         if (data.countryCode) {
           const newEmoji = convertToEmoji(data.countryCode);
           setEmoji(newEmoji);
@@ -90,8 +129,6 @@ function Form() {
     fetchCityDetails();
   }, [lat, lng]);
 
-  const navigate = useNavigate();
-
   if (isLoadingGeoCoding) {
     return <Spinner />;
   }
@@ -102,10 +139,9 @@ function Form() {
   }
 
   return (
-    <form className={styles.form}>
+    <form className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.row}>
         <label htmlFor="cityName">Country name</label>
-
         <input
           id="country"
           onChange={handleChange}
@@ -114,6 +150,7 @@ function Form() {
         />
         <span className={styles.flag}>{emoji}</span>
       </div>
+
       <div className={styles.row}>
         <label htmlFor="cityName">City name</label>
         <div className={styles.inputWithFlag}>
@@ -128,11 +165,11 @@ function Form() {
 
       <div className={styles.row}>
         <label htmlFor="date">When did you go to {formData.cityName}?</label>
-        <input
+        <DatePicker
           id="date"
-          type="date"
-          onChange={handleChange}
-          value={formData.date}
+          selected={formData.date}
+          onChange={handleDateChange}
+          dateFormat="dd/MM/yyyy"
           required
         />
       </div>
@@ -146,14 +183,7 @@ function Form() {
       </div>
 
       <div className={styles.buttons}>
-        <Button
-          type="primary"
-          text="Add"
-          onClick={(e) => {
-            e.preventDefault();
-            navigate(-1);
-          }}
-        />
+        <Button type="primary" text="Add" />
         <BackButton />
       </div>
     </form>
