@@ -16,7 +16,7 @@ const CountriesList = () => {
 
   const countries = cities.reduce((arr, city) => {
     if (!arr.some((el) => el.country === city.country)) {
-      return [...arr, { country: city.country, emoji: city.emoji }];
+      return [...arr, { country: city.country, emoji: city.emoji ,currency: city.currency,language:city.language}];
     }
     return arr;
   }, []);
