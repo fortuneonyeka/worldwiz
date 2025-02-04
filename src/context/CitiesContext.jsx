@@ -58,7 +58,7 @@ const reducer = (state, action) => {
       };
 
     default:
-      throw new Error("Inalid action type:" + action.type);
+      throw new Error("Invalid action type:" + action.type);
   }
 };
 

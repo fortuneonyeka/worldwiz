@@ -41,6 +41,20 @@
         "lat": "51.01375465718821",
         "lng": "10.72265625"
       }
+    },
+    {
+      "id": "3909",
+      "cityName": "Agnita",
+      "country": "Romania",
+      "emoji": "🇷🇴",
+      "currency": "lei",
+      "language": "Romanian",
+      "date": "2025-02-04T10:41:51.830Z",
+      "notes": "",
+      "position": {
+        "lat": "45.98169518512228",
+        "lng": "24.609375000000004"
+      }
     }
   ]
 }
