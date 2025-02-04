@@ -40,12 +40,14 @@ const reducer = (state, action) => {
 
     case "city/created":
       return {
-        ...state, isLoading:false, cities:[...state.cities, action.payload]
+        ...state, isLoading:false, cities:[...state.cities, action.payload],
+        currentCity:action.payload
       };
 
     case "city/deleted":
       return {
-        ...state, isLoading:false, cities: state.cities.filter((c) => c.id !== action.payload) 
+        ...state, isLoading:false, cities: state.cities.filter((c) => c.id !== action.payload) ,
+      
       };
 
     case "rejected":
@@ -76,13 +78,14 @@ export const CitiesProvider = ({ children }) => {
         const data = await res.json();
         dispatch({ type: "cities/loaded", payload: data });
       } catch (error) {
-        dispatch({ type: "rejected", payload: "Failed to fetch cities" });
+        dispatch({ type: "rejected", payload: error });
       }
     }
     fetchCities();
   }, []);
 
   async function getCity(id) {
+    
     if (id === currentCity.id) return;
 
     dispatch({ type: "loading" });
@@ -95,7 +98,7 @@ export const CitiesProvider = ({ children }) => {
 
       const data = await res.json();
       dispatch({ type: "city/loaded", payload: data });
-    } catch (error) {
+    } catch  {
       dispatch({ type: "rejected", payload: "Failed to load city" });
     }
   }
@@ -118,7 +121,7 @@ export const CitiesProvider = ({ children }) => {
       const data = await res.json();
       dispatch({ type: "city/created", payload: data });
       return data;
-    } catch (error) {
+    } catch  {
       dispatch({ type: "rejected", payload: "Failed to add city" });
       throw error;
     }
@@ -133,7 +136,7 @@ export const CitiesProvider = ({ children }) => {
 
       if (!res.ok) throw new Error(`Failed to delete city`);
       dispatch({ type: "city/deleted", payload: id });
-    } catch (error) {
+    } catch  {
       dispatch({ type: "rejected", payload: "Failed to delete city" });
       throw error;
     }

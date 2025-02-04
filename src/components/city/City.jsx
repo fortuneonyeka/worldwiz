@@ -70,7 +70,7 @@ function City() {
       </div>
 
       <div className={`${styles.row} ${styles.buttons}`}>
-        <Button type="secondary" text="Confirm Delete" onClick={handleDelete} />
+        <Button type="secondary" text="🗑️ Delete" onClick={handleDelete} />
         <BackButton />
       </div>
     </div>
