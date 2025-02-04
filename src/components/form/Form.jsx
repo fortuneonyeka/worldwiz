@@ -9,14 +9,7 @@ import { useCities } from "../../context/CitiesContext";
 import Spinner from "../re-usables/spinners/Spinner";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
-export function convertToEmoji(countryCode) {
-  const codePoints = countryCode
-    .toUpperCase()
-    .split("")
-    .map((char) => 127397 + char.charCodeAt());
-  return String.fromCodePoint(...codePoints);
-}
+import { convertToEmoji } from "../../utils/emoji";
 
 const BASE_URL = "https://api.bigdatacloud.net/data/reverse-geocode-client";
 
@@ -25,6 +18,8 @@ function Form() {
   const [isLoadingGeoCoding, setIsLoadingGeoCoding] = useState(false);
   const [geocodingError, setGeocodingError] = useState("");
   const [emoji, setEmoji] = useState("");
+  const [currencySymbol, setCurrencySymbol] = useState("");
+  const [language, setLanguage] = useState("");
   const { createCity, isLoading } = useCities();
   const navigate = useNavigate();
 
@@ -33,6 +28,8 @@ function Form() {
     country: "",
     date: new Date(),
     notes: "",
+    currency: "",
+    language: "",
   });
 
   const handleChange = (e) => {
@@ -50,29 +47,59 @@ function Form() {
     }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
     
-    if (!lat || !lng || !formData.cityName || !formData.date) {
-      return;
-    }
+  //   if (!lat || !lng || !formData.cityName || !formData.date) {
+  //     return;
+  //   }
 
-  
-    try {
-      const newCity = {
-        cityName: formData.cityName,
-        country: formData.country,
-        emoji: emoji,
-        date: formData.date.toISOString(),
-        notes: formData.notes,
-        position: { lat, lng }
-      };
+  //   try {
+  //     const newCity = {
+  //       cityName: formData.cityName,
+  //       country: formData.country,
+  //       emoji: emoji,
+  //       currency: currencySymbol,
+  //       language:language,
+  //       date: formData.date.toISOString(),
+  //       notes: formData.notes,
+  //       position: { lat, lng }
+  //     };
 
-      await createCity(newCity);
-      navigate('/app/cities');
+  //     await createCity(newCity);
+  //     navigate('/app/cities');
       
+  //   } catch (error) {
+  //     setGeocodingError(error.message);
+  //   }
+  // };
+
+  const fetchCountryData = async (countryCode) => {
+    try {
+      const response = await fetch(`https://restcountries.com/v3.1/alpha/${countryCode}`);
+      const [data] = await response.json();
+      
+      // Get currency
+      const currencyKey = Object.keys(data.currencies)[0];
+      const currency = data.currencies[currencyKey];
+      const symbol = currency.symbol || currencyKey;
+      
+      // Get primary language
+      const languageKey = Object.keys(data.languages)[0];
+      const primaryLanguage = data.languages[languageKey];
+      
+      setCurrencySymbol(symbol);
+      setLanguage(primaryLanguage);
+      
+      setFormData(prev => ({
+        ...prev,
+        currency: symbol,
+        language: primaryLanguage
+      }));
     } catch (error) {
-      setGeocodingError(error.message);
+      console.error("Error fetching country data:", error);
+      setCurrencySymbol("💱");
+      setLanguage("Unknown");
     }
   };
 
@@ -85,7 +112,6 @@ function Form() {
         setGeocodingError("");
 
         const url = `${BASE_URL}?latitude=${lat}&longitude=${lng}`;
-
         const res = await fetch(url);
 
         if (!res.ok) {
@@ -114,6 +140,7 @@ function Form() {
         if (data.countryCode) {
           const newEmoji = convertToEmoji(data.countryCode);
           setEmoji(newEmoji);
+          await fetchCountryData(data.countryCode);
         }
       } catch (error) {
         console.error("Geocoding Error:", error);
@@ -126,6 +153,34 @@ function Form() {
     fetchCityDetails();
   }, [lat, lng]);
 
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (!lat || !lng || !formData.cityName || !formData.date) {
+      return;
+    }
+
+    try {
+      const newCity = {
+        cityName: formData.cityName,
+        country: formData.country,
+        emoji: emoji,
+        currency: currencySymbol,
+        language: language,
+        date: formData.date.toISOString(),
+        notes: formData.notes,
+        position: { lat, lng }
+      };
+
+      await createCity(newCity);
+      navigate('/app/cities');
+      
+    } catch (error) {
+      setGeocodingError(error.message);
+    }
+  };
+
   if (isLoadingGeoCoding) {
     return <Spinner />;
   }
@@ -137,7 +192,7 @@ function Form() {
 
   return (
     <form className={`${styles.form} ${isLoading ? styles.loading : ""}`} onSubmit={handleSubmit}>
-      <div className={styles.row}>
+     <div className={styles.row}>
         <label htmlFor="country">Country name</label>
         <input
           id="country"
@@ -145,7 +200,14 @@ function Form() {
           value={formData.country}
           required
         />
-        <span className={styles.flag}>{emoji}</span>
+        
+          <span className={styles.flag}>{emoji}</span>
+          <label htmlFor="currency">Country currency</label>
+          <input value={formData.currency} />
+          <label htmlFor="language">Country language</label>
+          <input value={formData.language} id="langauge"
+          onChange={handleChange}/>
+       
       </div>
 
       <div className={styles.row}>

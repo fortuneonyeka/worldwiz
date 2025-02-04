@@ -17,3 +17,13 @@
   font-size: 3rem;
   line-height: 1;
 }
+
+
+.currency, .language {
+  font-size: 1.5rem;
+  color: #666;
+}
+
+.language {
+  font-style: italic;
+}

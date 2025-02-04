@@ -1,51 +1,45 @@
 {
   "cities": [
     {
-      "cityName": "Berlin",
-      "country": "Germany",
-      "emoji": "🇩🇪",
-      "date": "2027-02-12T09:24:11.863Z",
-      "notes": "Amazing 😃",
-      "position": {
-        "lat": 52.53586782505711,
-        "lng": 13.376933665713324
-      },
-      "id": "98443197"
-    },
-    {
-      "id": "0797",
-      "cityName": "Puylaroque",
+      "id": "f504",
+      "cityName": "Nice",
       "country": "France",
       "emoji": "🇫🇷",
-      "date": "2025-01-31T11:16:59.000Z",
-      "notes": "Nice",
+      "currency": "€",
+      "language": "French",
+      "date": "2025-02-04T09:49:20.775Z",
+      "notes": "",
       "position": {
-        "lat": "44.29240108529008",
-        "lng": "1.6479492187500002"
+        "lat": "43.691707903073805",
+        "lng": "7.294921875000001"
       }
     },
     {
-      "id": "7779",
-      "cityName": "Pioz",
-      "country": "Spain",
-      "emoji": "🇪🇸",
-      "date": "2025-01-28T11:48:21.000Z",
+      "id": "d9f0",
+      "cityName": "Grindelwald",
+      "country": "Switzerland",
+      "emoji": "🇨🇭",
+      "currency": "Fr.",
+      "language": "French",
+      "date": "2025-02-04T09:52:29.609Z",
       "notes": "",
       "position": {
-        "lat": "40.44694705960048",
-        "lng": "-3.1640625000000004"
+        "lat": "46.604167162931844",
+        "lng": "8.041992187500002"
       }
     },
     {
-      "id": "742a",
-      "cityName": "Macao",
-      "country": "Portugal",
-      "emoji": "🇵🇹",
-      "date": "2025-02-03T12:11:47.064Z",
-      "notes": "",
+      "id": "775a",
+      "cityName": "Nessetal",
+      "country": "Germany",
+      "emoji": "🇩🇪",
+      "currency": "€",
+      "language": "German",
+      "date": "2025-02-04T10:12:22.228Z",
+      "notes": "Awesome city",
       "position": {
-        "lat": "39.605688178320804",
-        "lng": "-7.932128906250001"
+        "lat": "51.01375465718821",
+        "lng": "10.72265625"
       }
     }
   ]
