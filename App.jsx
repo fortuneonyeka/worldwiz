@@ -12,32 +12,35 @@ import CityList from "./src/components/city/cityList/CityList";
 import City from "./src/components/city/City";
 import CountryList from "./src/components/country/countryList/CountryList";
 import { CitiesProvider } from "./src/context/CitiesContext";
+import { AuthProvider } from "./src/context/AuthContext";
 
 function App() {
   return (
     <div>
       <CitiesProvider>
-        <BrowserRouter
-          future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-          {/* <Header /> */}
-          <main>
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="products" element={<Product />} />
-              <Route path="pricing" element={<Pricing />} />
-              <Route path="login" element={<Login />} />
-              <Route path="app" element={<AppLayout />}>
-                <Route index element={<Navigate replace to="cities" />} />
-                <Route path="cities" element={<CityList />} />
-                <Route path="cities/:id" element={<City />} />
-                <Route path="countries" element={<CountryList />} />
-                <Route path="form" element={<Form />} />
-              </Route>
-              <Route path="*" element={<PageNotFound />} />
-            </Routes>
-          </main>
-          {/* <Footer /> */}
-        </BrowserRouter>
+        <AuthProvider>
+          <BrowserRouter
+            future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+            {/* <Header /> */}
+            <main>
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="products" element={<Product />} />
+                <Route path="pricing" element={<Pricing />} />
+                <Route path="login" element={<Login />} />
+                <Route path="app" element={<AppLayout />}>
+                  <Route index element={<Navigate replace to="cities" />} />
+                  <Route path="cities" element={<CityList />} />
+                  <Route path="cities/:id" element={<City />} />
+                  <Route path="countries" element={<CountryList />} />
+                  <Route path="form" element={<Form />} />
+                </Route>
+                <Route path="*" element={<PageNotFound />} />
+              </Routes>
+            </main>
+            {/* <Footer /> */}
+          </BrowserRouter>
+        </AuthProvider>
       </CitiesProvider>
     </div>
   );
