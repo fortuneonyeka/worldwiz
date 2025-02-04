@@ -5,6 +5,8 @@ function CountryItem({ country, key }) {
     <li className={styles.countryItem}>
       <span>{country.emoji}</span>
       <span>{country.country}</span>
+      <span className={styles.currency}>Currency: {country.currency || '💱'}</span>
+      <span className={styles.language}>Language: {country.language || 'Unknown'}</span>
       
     </li>
   );
