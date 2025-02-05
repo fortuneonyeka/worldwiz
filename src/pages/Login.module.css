@@ -24,3 +24,8 @@
   flex-direction: column;
   gap: 0.5rem;
 }
+
+.error {
+  color: var(--color-brand--3);
+  font-size: 20px;
+}

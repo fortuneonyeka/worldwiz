@@ -3,32 +3,38 @@ import styles from "./Login.module.css";
 import Header from "../components/navigations/header/Header";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-
-// 3) Inside an effect, check whether `isAuthenticated === true`. If so, programatically navigate to `/app`
+import Button from "../components/re-usables/button/Button";
 
 export default function Login() {
-  // PRE-FILL FOR DEV PURPOSES
-  const [email, setEmail] = useState("jack@example.com");
-  const [password, setPassword] = useState("qwerty");
-  const navigate = useNavigate()
-
-  const {login, isAuthenticated} = useAuth()
+  const [email, setEmail] = useState("fortune@example.com");
+  const [password, setPassword] = useState("superdev");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const { login, isAuthenticated } = useAuth();
 
   useEffect(() => {
-    if(isAuthenticated) {
-      navigate("/app")
+    if (isAuthenticated) {
+      navigate("/app", { replace: true });
     }
-  },[isAuthenticated])
+  }, [isAuthenticated, navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    login(email, password);
+    setError("");
+
+    if (email && password) {
+      const result = login(email, password);
+      if (result?.error) {
+        setError(result.error);
+      }
+    }
   };
 
   return (
     <main className={styles.login}>
       <Header />
       <form className={styles.form} onSubmit={handleSubmit}>
+        {error && <p className={styles.error}>{error}</p>}
         <div className={styles.row}>
           <label htmlFor="email">Email address</label>
           <input
@@ -51,7 +57,7 @@ export default function Login() {
         </div>
 
         <div>
-          <button>Login</button>
+          <Button type="primary" text="Login" />
         </div>
       </form>
     </main>

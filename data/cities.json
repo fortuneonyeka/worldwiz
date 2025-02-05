@@ -15,20 +15,6 @@
       }
     },
     {
-      "id": "d9f0",
-      "cityName": "Grindelwald",
-      "country": "Switzerland",
-      "emoji": "🇨🇭",
-      "currency": "Fr.",
-      "language": "French",
-      "date": "2025-02-04T09:52:29.609Z",
-      "notes": "",
-      "position": {
-        "lat": "46.604167162931844",
-        "lng": "8.041992187500002"
-      }
-    },
-    {
       "id": "775a",
       "cityName": "Nessetal",
       "country": "Germany",
