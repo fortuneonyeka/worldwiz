@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useReducer } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useReducer } from "react";
 
 const AuthContext = createContext();
 
@@ -49,7 +49,7 @@ const AuthProvider = ({ children }) => {
     }
   }, [isAuthenticated]);
 
-  const login = (email, password) => {
+  const login = useCallback((email, password) => {
     if (email === FAKE_USER.email && password === FAKE_USER.password) {
       dispatch({ type: "login", payload: FAKE_USER });
       return { success: true };
@@ -60,14 +60,18 @@ const AuthProvider = ({ children }) => {
     if (password !== FAKE_USER.password) {
       return { error: "Invalid password" };
     }
-  };
+  },[]);
 
-  const logout = () => {
+  const logout = useCallback(() => {
     dispatch({ type: "logout" });
-  };
+  },[]);
+
+  const value = useMemo(() => ({
+    isAuthenticated,login,logout,user
+  }),[isAuthenticated,login,logout,user])
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, user }}>
+    <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
   );
