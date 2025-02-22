@@ -1,20 +1,6 @@
 {
   "cities": [
     {
-      "id": "f504",
-      "cityName": "Nice",
-      "country": "France",
-      "emoji": "🇫🇷",
-      "currency": "€",
-      "language": "French",
-      "date": "2025-02-04T09:49:20.775Z",
-      "notes": "",
-      "position": {
-        "lat": "43.691707903073805",
-        "lng": "7.294921875000001"
-      }
-    },
-    {
       "id": "775a",
       "cityName": "Nessetal",
       "country": "Germany",
@@ -54,6 +40,90 @@
       "position": {
         "lat": "40.16208338164619",
         "lng": "9.228515625000002"
+      }
+    },
+    {
+      "id": "40f2",
+      "cityName": "Los Santos de la Humosa",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "currency": "€",
+      "language": "Spanish",
+      "date": "2025-02-21T18:17:01.220Z",
+      "notes": "Awsome city",
+      "position": {
+        "lat": "40.49709237269567",
+        "lng": "-3.251953125"
+      }
+    },
+    {
+      "id": "c1fa",
+      "cityName": "Salles-sur-l'Hers",
+      "country": "France",
+      "emoji": "🇫🇷",
+      "currency": "€",
+      "language": "French",
+      "date": "2025-02-21T18:17:29.822Z",
+      "notes": "",
+      "position": {
+        "lat": "43.29320031385285",
+        "lng": "1.77978515625"
+      }
+    },
+    {
+      "id": "e2f9",
+      "cityName": "Pradines",
+      "country": "France",
+      "emoji": "🇫🇷",
+      "currency": "€",
+      "language": "French",
+      "date": "2025-02-21T18:40:22.832Z",
+      "notes": "",
+      "position": {
+        "lat": "45.521743896993634",
+        "lng": "1.9335937500000002"
+      }
+    },
+    {
+      "id": "6484",
+      "cityName": "Langnau",
+      "country": "Switzerland",
+      "emoji": "🇨🇭",
+      "currency": "Fr.",
+      "language": "French",
+      "date": "2025-02-21T19:08:12.293Z",
+      "notes": "Greate City, will surely visit again",
+      "position": {
+        "lat": "46.965259400349275",
+        "lng": "7.778320312500001"
+      }
+    },
+    {
+      "id": "7658",
+      "cityName": "Qikiqtaaluk Region",
+      "country": "Canada",
+      "emoji": "🇨🇦",
+      "currency": "$",
+      "language": "English",
+      "date": "2025-02-21T19:50:35.792Z",
+      "notes": "Lovely",
+      "position": {
+        "lat": "68.39918004344189",
+        "lng": "-74.88281250000001"
+      }
+    },
+    {
+      "id": "1d04",
+      "cityName": "Halifax",
+      "country": "Canada",
+      "emoji": "🇨🇦",
+      "currency": "$",
+      "language": "English",
+      "date": "2025-02-21T19:51:57.798Z",
+      "notes": "Lovely city, I live here",
+      "position": {
+        "lat": "44.6315278013161",
+        "lng": "-63.57513427734376"
       }
     }
   ]

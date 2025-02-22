@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styles from "./Map.module.css";
-import { useSearchParams } from "react-router-dom";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { useCities } from "../../context/CitiesContext";
 import DetectClick from "./DetectClick";
@@ -8,6 +7,7 @@ import ChangeCenter from "./ChangeCenter";
 import { useGeolocation } from "../../hooks/useGeoLocation";
 import Button from "../re-usables/button/Button";
 import { useUrlPosition } from "../../hooks/useUrlPosition";
+import "leaflet/dist/leaflet.css";
 
 const Map = () => {
   const [mapPosition, setMapPosition] = useState([40, 0]);
@@ -36,10 +36,10 @@ const Map = () => {
   }, [geoLocationPosition, isUsingGeoLocation]);
 
   // Handle "Use your position" button click
-  const handleUsePosition = () => {
+  const handleUsePosition = useCallback(() => {
     getPosition();
     setIsUsingGeoLocation(true); // Set flag to indicate geolocation is being used
-  };
+  },[getPosition]);
 
   return (
     <div className={styles.mapContainer}>

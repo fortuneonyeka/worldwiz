@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styles from "./Login.module.css";
 import Header from "../components/navigations/header/Header";
 import { useAuth } from "../context/AuthContext";
@@ -18,7 +18,7 @@ export default function Login() {
     }
   }, [isAuthenticated, navigate]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = useCallback((e) => {
     e.preventDefault();
     setError("");
 
@@ -28,7 +28,7 @@ export default function Login() {
         setError(result.error);
       }
     }
-  };
+  },[email,password,login]);
 
   return (
     <main className={styles.login}>

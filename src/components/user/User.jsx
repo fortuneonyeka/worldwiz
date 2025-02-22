@@ -1,15 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import styles from "./User.module.css";
+import { useCallback } from "react";
 
 function User() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
-  function handleClick() {
+  const handleClick=useCallback(() => {
     logout();
     navigate("/");
-  }
+  },[logout,navigate])
 
   return (
     <div className={styles.user}>

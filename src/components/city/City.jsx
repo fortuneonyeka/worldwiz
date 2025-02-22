@@ -1,45 +1,63 @@
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "./City.module.css";
 import { useCities } from "../../context/CitiesContext";
-import { useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import Spinner from "../re-usables/spinners/Spinner";
 import BackButton from "../re-usables/button/BackButton";
 import Button from "../re-usables/button/Button";
 import Message from "../re-usables/message/Message";
 
-const formatDate = (date) =>
-  new Intl.DateTimeFormat("en", {
+// Memoize the date formatter to avoid recreating it on every render
+const formatDate = (date) => {
+  if (!date) return "Invalid date"; // Handle invalid or missing date
+  return new Intl.DateTimeFormat("en", {
     day: "numeric",
     month: "long",
     year: "numeric",
     weekday: "long",
   }).format(new Date(date));
+};
 
 function City() {
   const { id } = useParams();
   const { currentCity, getCity, isLoading, deleteCity } = useCities();
   const navigate = useNavigate();
 
+  
   useEffect(() => {
     getCity(id);
   }, [id, getCity]);
 
-  if (isLoading) return <Spinner />;
-  if (!currentCity.id) return <Message message="No city found" />;
+  // Memoize the formatted date to avoid recalculating it on every render
+  const formattedDate = useMemo(() => formatDate(currentCity.date), [currentCity.date]);
 
-  const { cityName, emoji, date, notes } = currentCity;
-
-  async function handleDelete() {
+  // Memoize the delete handler to avoid recreating it on every render
+  const handleDelete = useCallback(async () => {
     try {
       await deleteCity(id);
-      navigate('/app/cities');
+      navigate("/app/cities");
     } catch (error) {
       // Error is already handled in context
     }
-  }
+  }, [deleteCity, id, navigate]);
+
+  // Memoize the Wikipedia link to avoid recalculating it on every render
+  const wikipediaLink = useMemo(
+    () => `https://en.wikipedia.org/wiki/${currentCity.cityName}`,
+    [currentCity.cityName]
+  );
+
+  // Early return for loading state
+  if (isLoading) return <Spinner />;
+
+  // Early return if no city is found
+  if (!currentCity.id) return <Message message="No city found" />;
+
+  const { cityName, emoji, notes } = currentCity;
 
   return (
     <div className={styles.city}>
+      {/* City Name */}
       <div className={styles.row}>
         <h6>City name</h6>
         <h3>
@@ -47,11 +65,13 @@ function City() {
         </h3>
       </div>
 
+      {/* Visit Date */}
       <div className={styles.row}>
         <h6>You went to {cityName} on</h6>
-        <p>{formatDate(date)}</p>
+        <p>{formattedDate}</p>
       </div>
 
+      {/* Notes (Conditional Rendering) */}
       {notes && (
         <div className={styles.row}>
           <h6>Your notes</h6>
@@ -59,16 +79,15 @@ function City() {
         </div>
       )}
 
+      {/* Wikipedia Link */}
       <div className={styles.row}>
         <h6>Learn more</h6>
-        <a
-          href={`https://en.wikipedia.org/wiki/${cityName}`}
-          target="_blank"
-          rel="noreferrer">
+        <a href={wikipediaLink} target="_blank" rel="noreferrer">
           Check out {cityName} on Wikipedia &rarr;
         </a>
       </div>
 
+      {/* Buttons */}
       <div className={`${styles.row} ${styles.buttons}`}>
         <Button type="secondary" text="🗑️ Delete" onClick={handleDelete} />
         <BackButton />
