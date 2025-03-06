@@ -9,7 +9,15 @@ import Button from "../re-usables/button/Button";
 import { useUrlPosition } from "../../hooks/useUrlPosition";
 import "leaflet/dist/leaflet.css";
 
+
+
 const Map = () => {
+  const [isMapReady, setIsMapReady] = useState(false);
+
+useEffect(() => {
+  setIsMapReady(true);
+}, []);
+
   const [mapPosition, setMapPosition] = useState([40, 0]);
   const { cities } = useCities();
   const {
@@ -50,7 +58,8 @@ const Map = () => {
           text={isLoadingPosition ? "...Loading" : "Use your position"}
         />
       )}
-      <MapContainer
+      {isMapReady && (
+        <MapContainer
         center={mapPosition}
         zoom={6}
         scrollWheelZoom={true}
@@ -79,6 +88,7 @@ const Map = () => {
         <ChangeCenter position={mapPosition} />
         <DetectClick />
       </MapContainer>
+      )}
     </div>
   );
 };
