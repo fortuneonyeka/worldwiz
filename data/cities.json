@@ -1,20 +1,6 @@
 {
   "cities": [
     {
-      "id": "775a",
-      "cityName": "Nessetal",
-      "country": "Germany",
-      "emoji": "🇩🇪",
-      "currency": "€",
-      "language": "German",
-      "date": "2025-02-04T10:12:22.228Z",
-      "notes": "Awesome city",
-      "position": {
-        "lat": "51.01375465718821",
-        "lng": "10.72265625"
-      }
-    },
-    {
       "id": "3909",
       "cityName": "Agnita",
       "country": "Romania",
@@ -99,20 +85,6 @@
       }
     },
     {
-      "id": "7658",
-      "cityName": "Qikiqtaaluk Region",
-      "country": "Canada",
-      "emoji": "🇨🇦",
-      "currency": "$",
-      "language": "English",
-      "date": "2025-02-21T19:50:35.792Z",
-      "notes": "Lovely",
-      "position": {
-        "lat": "68.39918004344189",
-        "lng": "-74.88281250000001"
-      }
-    },
-    {
       "id": "1d04",
       "cityName": "Halifax",
       "country": "Canada",
@@ -124,6 +96,20 @@
       "position": {
         "lat": "44.6315278013161",
         "lng": "-63.57513427734376"
+      }
+    },
+    {
+      "id": "d97b",
+      "cityName": "Wolfenbuttel",
+      "country": "Germany",
+      "emoji": "🇩🇪",
+      "currency": "€",
+      "language": "German",
+      "date": "2025-03-06T19:51:37.631Z",
+      "notes": "",
+      "position": {
+        "lat": "52.16045455774706",
+        "lng": "10.502929687500002"
       }
     }
   ]

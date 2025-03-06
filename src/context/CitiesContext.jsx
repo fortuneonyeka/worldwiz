@@ -1,10 +1,10 @@
 import {
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useReducer,
 } from "react";
-import { useNavigate } from "react-router-dom";
 
 const BASE_URL = "http://localhost:8000";
 const CitiesContext = createContext();
@@ -83,7 +83,7 @@ export const CitiesProvider = ({ children }) => {
     fetchCities();
   }, []);
 
-  async function getCity(id) {
+  const getCity = useCallback( async function getCity(id) {
     
     if (id === currentCity.id) return;
 
@@ -100,7 +100,7 @@ export const CitiesProvider = ({ children }) => {
     } catch  {
       dispatch({ type: "rejected", payload: "Failed to load city" });
     }
-  }
+  },[currentCity.id])
 
   async function createCity(newCity) {
     dispatch({ type: "loading" });
